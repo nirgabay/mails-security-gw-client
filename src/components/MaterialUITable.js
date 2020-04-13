@@ -22,7 +22,7 @@ export default function MaterialUITable({columns, data, update}) {
             columns,
             data,
             initialState: {
-                // hiddenColumns: ['id']
+                hiddenColumns: ['id']
             }
         },
         useSortBy,
