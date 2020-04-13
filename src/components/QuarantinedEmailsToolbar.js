@@ -132,8 +132,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-QuarantinedEmailsToolbar.propTypes = {
-    deleteUserHandler: PropTypes.func.isRequired,
-};
-
 export default connect(mapStateToProps, mapDispatchToProps)(QuarantinedEmailsToolbar);
