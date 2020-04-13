@@ -1,22 +1,16 @@
-import {FETCH_MAILS} from "../actionTypes";
-import makeData from "../../makeData";
+import {RECEIVE_MAILS, REQUEST_MAILS} from "../actionTypes";
 
-const initialState = {
-    mails: makeData(40),
-};
-
-export default function (state = initialState, action) {
+export default function (state = {mails: [], isFetching: false}, action) {
     switch (action.type) {
-        case FETCH_MAILS: {
-            const {startIndex} = action.payload;
-
-            const mails = state.mails.concat(makeData(40));
-
-            return {
-                ...state,
-                mails,
-            };
-        }
+        case REQUEST_MAILS:
+            return Object.assign({}, state, {
+                isFetching: true,
+            });
+        case RECEIVE_MAILS:
+            return Object.assign({}, state, {
+                isFetching: false,
+                mails: state.mails.concat(action.mails),
+            });
 
         default:
             return state;

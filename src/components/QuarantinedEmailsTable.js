@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {bindActionCreators} from "redux";
 import {fetchMails} from "../redux/actions";
 import {connect} from "react-redux";
@@ -10,8 +10,12 @@ function QuarantinedEmailsTable(props) {
     const columns = React.useMemo(
         () => [
             {
-                Header: 'ID',
+                Header: 'MAIL_ID',
                 accessor: 'id',
+            },
+            {
+                Header: 'ID',
+                accessor: 'uuid',
             },
             {
                 Header: 'Sent Time',
@@ -36,6 +40,10 @@ function QuarantinedEmailsTable(props) {
         ],
         []
     );
+
+    useEffect(() => {
+        fetchMails();
+    }, []);
 
     return (
         <div className={'quarantined-emails-table'}>

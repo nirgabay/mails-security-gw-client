@@ -1,7 +1,6 @@
 import React from "react";
 import {useRowSelect, useSortBy, useTable} from "react-table";
 import InfiniteScroll from "react-infinite-scroller";
-import TableContainer from "@material-ui/core/TableContainer";
 import MaUTable from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
@@ -17,11 +16,14 @@ export default function MaterialUITable({columns, data, update}) {
         headerGroups,
         rows,
         prepareRow,
-        state: {sortBy}
+        state: {sortBy},
     } = useTable(
         {
             columns,
-            data
+            data,
+            initialState: {
+                // hiddenColumns: ['id']
+            }
         },
         useSortBy,
         useRowSelect,
@@ -42,7 +44,7 @@ export default function MaterialUITable({columns, data, update}) {
                 },
                 ...columns,
             ])
-        }
+        },
     );
 
     React.useEffect(() => {
@@ -52,10 +54,11 @@ export default function MaterialUITable({columns, data, update}) {
     return (
         <InfiniteScroll
             pageStart={0}
-            loadMore={update}
+            loadMore={() => update(rows.length)}
             hasMore={true}
             loader={<h4>Loading more mails...</h4>}
             useWindow={false}
+            initialLoad={false}
         >
             <div>
                 <MaUTable stickyHeader>
