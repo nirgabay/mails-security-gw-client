@@ -33,6 +33,11 @@ const DeleteMailDialog = props => {
         setOpen(false);
     };
 
+    const handleDelete = () => {
+        deleteMail(selectedRow, selectedMail.id);
+        handleClose();
+    };
+
     return (
         <div>
             <Tooltip title="Delete Mail">
@@ -58,7 +63,7 @@ const DeleteMailDialog = props => {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={() => deleteMail(selectedRow, selectedMail.id)} color="primary">
+                    <Button onClick={handleDelete} color="primary">
                         Delete
                     </Button>
                 </DialogActions>
