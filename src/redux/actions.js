@@ -1,8 +1,22 @@
-import {DELETE_END, DELETE_START, RECEIVE_MAILS, REQUEST_MAILS, SELECT_ROW, SET_FILTER} from "./actionTypes";
+import {
+    CLEAR_TABLE,
+    DELETE_END,
+    DELETE_START,
+    RECEIVE_MAILS,
+    REQUEST_MAILS,
+    SELECT_ROW,
+    SET_FILTER
+} from "./actionTypes";
 import Api from "../services/apiService";
 
 const fetchBatchSize = process.env.REACT_APP_FETCH_BATCH_SIZE || 100;
 const api = new Api();
+
+function clearTable() {
+    return {
+        type: CLEAR_TABLE,
+    }
+}
 
 export const selectRow = selectedRow => {
     return {
@@ -42,6 +56,13 @@ function endDelete(rowId) {
     return {
         type: DELETE_END,
         rowId
+    }
+}
+
+export function refreshTable() {
+    return function (dispatch) {
+        dispatch(clearTable());
+        return dispatch(fetchMails());
     }
 }
 

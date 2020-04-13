@@ -1,7 +1,25 @@
-import {DELETE_END, DELETE_START, RECEIVE_MAILS, REQUEST_MAILS, SELECT_ROW, SET_FILTER} from "../actionTypes";
+import {
+    CLEAR_TABLE,
+    DELETE_END,
+    DELETE_START,
+    RECEIVE_MAILS,
+    REQUEST_MAILS,
+    SELECT_ROW,
+    SET_FILTER
+} from "../actionTypes";
 
-export default function (state = {selectedRow: 0, mails: [], isFetching: false, isDeleting: false, filter: ''}, action) {
+const initialValues = {
+    selectedRow: 0,
+    mails: [],
+    isFetching: false,
+    isDeleting: false,
+    filter: ''
+};
+
+export default function (state = initialValues, action) {
     switch (action.type) {
+        case CLEAR_TABLE:
+            return initialValues;
         case SELECT_ROW:
             return Object.assign({}, state, {
                 selectedRow: action.selectedRow,

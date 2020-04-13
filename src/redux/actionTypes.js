@@ -1,3 +1,4 @@
+export const CLEAR_TABLE = "CLEAR_TABLE";
 export const SELECT_ROW = "SELECT_ROW";
 export const REQUEST_MAILS = "REQUEST_MAILS";
 export const RECEIVE_MAILS = "RECEIVE_MAILS";

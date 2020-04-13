@@ -8,7 +8,7 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from '@material-ui/icons/Search';
-import {setFilter} from "../redux/actions";
+import {refreshTable, setFilter} from "../redux/actions";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import PropTypes from 'prop-types';
@@ -74,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
 
 function QuarantinedEmailsToolbar(props) {
     const classes = useStyles();
+    const {refreshTable} = props;
 
     return (
         <div className={'toolbar flex flex-justify-center'}>
@@ -99,6 +100,7 @@ function QuarantinedEmailsToolbar(props) {
                 variant="contained"
                 className={classes.margin}
                 startIcon={<RefreshIcon />}
+                onClick={() => refreshTable()}
             >
                 Refresh
             </Button>
@@ -129,6 +131,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         setFilter: bindActionCreators(setFilter, dispatch),
+        refreshTable: bindActionCreators(refreshTable, dispatch),
     };
 };
 
