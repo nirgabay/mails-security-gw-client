@@ -2,8 +2,17 @@ import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import React from "react";
 import {connect} from "react-redux";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+    header: {
+        fontWeight: 800,
+        color: 'darkblue',
+    },
+}));
 
 function QuarantinedEmailDetails(props) {
+    const classes = useStyles();
     const {mails, selectedRow} = props;
     const selectedMail = mails[selectedRow];
 
@@ -19,7 +28,7 @@ function QuarantinedEmailDetails(props) {
                 </TabList>
 
                 <TabPanel>
-                    <p>E-mail information</p>
+                    <p className={classes.header}>E-mail information</p>
 
                     <div className={'flex'}>
                         <div className={'width-15'}>
