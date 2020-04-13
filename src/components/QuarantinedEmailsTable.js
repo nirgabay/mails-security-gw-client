@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 import {bindActionCreators} from "redux";
-import {fetchMails} from "../redux/actions";
+import {fetchMails, selectRow} from "../redux/actions";
 import {connect} from "react-redux";
 import MaterialUITable from "./MaterialUITable";
 
 function QuarantinedEmailsTable(props) {
-    const {mails, fetchMails} = props;
+    const {mails, fetchMails, selectRow, selectedRow, deleteMail} = props;
 
     const columns = React.useMemo(
         () => [
@@ -35,7 +35,7 @@ function QuarantinedEmailsTable(props) {
             },
             {
                 Header: 'Categorized As',
-                accessor: 'categorizedAs',
+                accessor: 'category',
             },
         ],
         []
@@ -47,17 +47,25 @@ function QuarantinedEmailsTable(props) {
 
     return (
         <div className={'quarantined-emails-table'}>
-            <MaterialUITable columns={columns} data={mails} update={fetchMails}/>
+            <MaterialUITable
+                columns={columns}
+                data={mails}
+                update={fetchMails}
+                selectRow={selectRow}
+                selectedRow={selectedRow}
+            />
         </div>
     );
 }
 
 const mapStateToProps = state => ({
     mails: state.mails.mails,
+    selectedRow: state.mails.selectedRow
 });
 
 const mapDispatchToProps = dispatch => {
     return {
+        selectRow: bindActionCreators(selectRow, dispatch),
         fetchMails: bindActionCreators(fetchMails, dispatch),
     };
 };

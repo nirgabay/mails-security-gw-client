@@ -1,9 +1,16 @@
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import React from "react";
-import {v4 as uuidv4} from "uuid";
+import {connect} from "react-redux";
 
-export function QuarantinedEmailDetails(props) {
+function QuarantinedEmailDetails(props) {
+    const {mails, selectedRow} = props;
+    const selectedMail = mails[selectedRow];
+
+    const getMailPropertyValue = (key) => {
+        return selectedMail ?  selectedMail[key] : 'N/A';
+    };
+
     return (
         <div className={'email-details-container'}>
             <Tabs>
@@ -23,11 +30,12 @@ export function QuarantinedEmailDetails(props) {
                             <p>Categorized As</p>
                         </div>
                         <div>
-                            <p>{uuidv4()}</p>
-                            <p>{new Date().toISOString()}</p>
-                            <p>recipient@test.com</p>
-                            <p>sender@test.com</p>
-                            <p>Spam</p>
+                            <p>{getMailPropertyValue('uuid')}</p>
+                            <p>{getMailPropertyValue('receivedTime')}</p>
+                            <p>{getMailPropertyValue('recipient')}</p>
+                            <p>{getMailPropertyValue('sender')}</p>
+                            <p>{getMailPropertyValue('subject')}</p>
+                            <p>{getMailPropertyValue('category')}</p>
                         </div>
                     </div>
                 </TabPanel>
@@ -35,3 +43,10 @@ export function QuarantinedEmailDetails(props) {
         </div>
     );
 }
+
+const mapStateToProps = state => ({
+    mails: state.mails.mails,
+    selectedRow: state.mails.selectedRow
+});
+
+export default connect(mapStateToProps, null)(QuarantinedEmailDetails);

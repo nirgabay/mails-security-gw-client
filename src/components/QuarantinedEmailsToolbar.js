@@ -11,6 +11,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import {setFilter} from "../redux/actions";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import PropTypes from 'prop-types';
+import Toolbar from "@material-ui/core/Toolbar";
+import clsx from "clsx";
+import DeleteMailDialog from "./DeleteMailDialog";
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -18,6 +22,55 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: '40px'
     },
 }));
+
+
+// const TableToolbar = props => {
+//     // const classes = useToolbarStyles();
+//
+//     const {
+//         numSelected,
+//         addUserHandler,
+//         deleteUserHandler,
+//     } = props;
+//
+//     return (
+//         <Toolbar
+//             className={clsx(classes.root, {
+//                 [classes.highlight]: numSelected > 0,
+//             })}
+//         >
+//             <AddUserDialog addUserHandler={addUserHandler} />
+//             {numSelected > 0 ? (
+//                 <Typography
+//                     className={classes.title}
+//                     color="inherit"
+//                     variant="subtitle1"
+//                 >
+//                     {numSelected} selected
+//                 </Typography>
+//             ) : (
+//                 <Typography className={classes.title} variant="h6" id="tableTitle">
+//                     Users
+//                 </Typography>
+//             )}
+//
+//             {/*{numSelected > 0 ? (*/}
+//             {/*    <Tooltip title="Delete">*/}
+//             {/*        <IconButton aria-label="delete" onClick={deleteUserHandler}>*/}
+//             {/*            <DeleteIcon />*/}
+//             {/*        </IconButton>*/}
+//             {/*    </Tooltip>*/}
+//             {/*) : (*/}
+//             {/*    <GlobalFilter*/}
+//             {/*        preGlobalFilteredRows={preGlobalFilteredRows}*/}
+//             {/*        globalFilter={globalFilter}*/}
+//             {/*        setGlobalFilter={setGlobalFilter}*/}
+//             {/*    />*/}
+//             {/*)}*/}
+//         </Toolbar>
+//     )
+// };
+
 
 function QuarantinedEmailsToolbar(props) {
     const classes = useStyles();
@@ -31,17 +84,14 @@ function QuarantinedEmailsToolbar(props) {
             >
                 Release
             </Button>
-            <Button
-                variant="contained"
-                className={classes.margin}
-                startIcon={<ClearIcon />}
-            >
-                Delete
-            </Button>
+
+            <DeleteMailDialog />
+
             <Button
                 variant="contained"
                 className={classes.margin}
                 startIcon={<GetAppIcon />}
+                disabled
             >
                 Download EML
             </Button>
@@ -80,6 +130,10 @@ const mapDispatchToProps = dispatch => {
     return {
         setFilter: bindActionCreators(setFilter, dispatch),
     };
+};
+
+QuarantinedEmailsToolbar.propTypes = {
+    deleteUserHandler: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuarantinedEmailsToolbar);
