@@ -38,6 +38,7 @@ export const Styles = styled.div`
   
   .quarantined-emails-table {
     overflow: auto;
+    height: 100%;
   }
   
   .email-details-container {
@@ -61,4 +62,12 @@ export const Styles = styled.div`
     flex-direction: column;
     justify-content: space-between;
   }
+  
+  .MuiOutlinedInput-adornedStart {
+    max-height: 40px;
+  }
+  
+  .selectAll svg {
+     color: white;
+   }
 `;

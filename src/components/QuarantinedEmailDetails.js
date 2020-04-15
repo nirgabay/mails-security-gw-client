@@ -3,6 +3,7 @@ import 'react-tabs/style/react-tabs.css';
 import React from "react";
 import {connect} from "react-redux";
 import {makeStyles} from "@material-ui/core/styles";
+import {getLastSelectedMail} from "../redux/reducers/mails";
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -13,11 +14,10 @@ const useStyles = makeStyles((theme) => ({
 
 function QuarantinedEmailDetails(props) {
     const classes = useStyles();
-    const {mails, selectedRow} = props;
-    const selectedMail = mails[selectedRow];
+    const {lastSelectedMail} = props;
 
     const getMailPropertyValue = (key) => {
-        return selectedMail ?  selectedMail[key] : 'N/A';
+        return lastSelectedMail ?  lastSelectedMail[key] : 'N/A';
     };
 
     return (
@@ -35,12 +35,13 @@ function QuarantinedEmailDetails(props) {
                             <p>ID</p>
                             <p>Received Time</p>
                             <p>Recipient</p>
+                            <p>Sender</p>
                             <p>Subject</p>
                             <p>Categorized As</p>
                         </div>
                         <div>
                             <p>{getMailPropertyValue('uuid')}</p>
-                            <p>{getMailPropertyValue('receivedTime')}</p>
+                            <p>{getMailPropertyValue('sentTime')}</p>
                             <p>{getMailPropertyValue('recipient')}</p>
                             <p>{getMailPropertyValue('sender')}</p>
                             <p>{getMailPropertyValue('subject')}</p>
@@ -54,8 +55,7 @@ function QuarantinedEmailDetails(props) {
 }
 
 const mapStateToProps = state => ({
-    mails: state.mails.mails,
-    selectedRow: state.mails.selectedRow
+    lastSelectedMail: getLastSelectedMail(state),
 });
 
 export default connect(mapStateToProps, null)(QuarantinedEmailDetails);

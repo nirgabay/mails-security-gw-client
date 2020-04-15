@@ -4,12 +4,12 @@ import {
     DELETE_START,
     RECEIVE_MAILS,
     REQUEST_MAILS,
-    SELECT_ROW,
-    SET_FILTER
+    SELECT_ROWS,
+    SET_FILTER, UNSELECT_ALL_ROWS, UPDATE_END, UPDATE_START
 } from "./actionTypes";
 import Api from "../services/apiService";
 
-const fetchBatchSize = process.env.REACT_APP_FETCH_BATCH_SIZE || 100;
+const fetchBatchSize = process.env.REACT_APP_FETCH_BATCH_SIZE || 20;
 const api = new Api();
 
 function clearTable() {
@@ -18,10 +18,16 @@ function clearTable() {
     }
 }
 
-export const selectRow = selectedRow => {
+export const selectRows = selectedRows => {
     return {
-        type: SELECT_ROW,
-        selectedRow
+        type: SELECT_ROWS,
+        selectedRows
+    }
+};
+
+export const unselectAllRows = () => {
+    return {
+        type: UNSELECT_ALL_ROWS,
     }
 };
 
@@ -52,10 +58,24 @@ function startDelete() {
     }
 }
 
-function endDelete(rowId) {
+function endDelete(mailIds) {
     return {
         type: DELETE_END,
-        rowId
+        mailIds
+    }
+}
+
+function startUpdate() {
+    return {
+        type: UPDATE_START,
+    }
+}
+
+function endUpdate(mailIds, status) {
+    return {
+        type: UPDATE_END,
+        mailIds,
+        status
     }
 }
 
@@ -78,13 +98,25 @@ export function fetchMails(offset) {
     }
 }
 
-export function deleteMail(rowId, mailId) {
+export function deleteMails(mailIds) {
     return function (dispatch) {
         dispatch(startDelete());
 
-        return api.deleteMail(mailId)
+        return api.deleteMails(mailIds)
             .then(
-                () => dispatch(endDelete(rowId)),
+                () => dispatch(endDelete(mailIds)),
+                error => console.log('An error occurred.', error)
+            );
+    }
+}
+
+export function updateMails(mailIds, status) {
+    return function (dispatch) {
+        dispatch(startUpdate());
+
+        return api.updateMailsStatus(mailIds, status)
+            .then(
+                () => dispatch(endUpdate(mailIds, status)),
                 error => console.log('An error occurred.', error)
             );
     }

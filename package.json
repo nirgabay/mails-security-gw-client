@@ -9,14 +9,18 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "clsx": "latest",
     "express": "^4.17.1",
+    "js-search": "^2.0.0",
     "lodash": "latest",
     "namor": "^2.0.2",
+    "prop-types": "latest",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-infinite-scroller": "^1.2.4",
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
+    "react-spinners": "^0.8.1",
     "react-table": "^7.0.4",
     "react-tabs": "^3.1.0",
     "react-window": "^1.8.5",
@@ -26,8 +30,7 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.1.0",
     "uuid": "^7.0.3",
-    "prop-types": "latest",
-    "clsx": "latest"
+    "@emotion/core": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

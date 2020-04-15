@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const MAILS_URI = "mails";
+
 export default class Api {
   constructor() {
     this.instance = axios.create({
@@ -12,13 +14,20 @@ export default class Api {
    * GET mails
    */
   getMails(offset, limit) {
-    return this.instance.get('mails', { params: { offset: offset || '', limit: limit || '' }}).then(response => response.data);
+    return this.instance.get(MAILS_URI, { params: { offset: offset || '', limit: limit || '' }}).then(response => response.data);
   }
 
   /**
    * DELETE mail
    */
-  deleteMail(mailId) {
-    return this.instance.delete('mails', { params: { mailId }}).then(response => response.data);
+  deleteMails(mailIds) {
+    return this.instance.delete(MAILS_URI, { data: { mailIds }}).then(response => response.data);
+  }
+
+  /**
+   * Update mails status
+   */
+  updateMailsStatus(mailIds, status) {
+    return this.instance.put(MAILS_URI, { mailIds, status }).then(response => response.data);
   }
 }
