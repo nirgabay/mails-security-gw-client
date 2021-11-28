@@ -12,7 +12,7 @@
     "clsx": "latest",
     "express": "^4.17.1",
     "js-search": "^2.0.0",
-    "lodash": "latest",
+    "lodash": "4.17.21",
     "namor": "^2.0.2",
     "prop-types": "latest",
     "react": "^16.13.1",
